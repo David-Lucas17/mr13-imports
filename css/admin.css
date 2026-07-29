@@ -75,7 +75,7 @@ form textarea:focus {
 }
 form button {
     margin-top: 20px;
-    padding: 12px 30px;
+    padding: 14px 30px;
     background: linear-gradient(135deg, #c9962d, #e0b64a);
     color: #000;
     border: none;
@@ -83,10 +83,13 @@ form button {
     font-weight: 700;
     cursor: pointer;
     font-size: 16px;
+    width: 100%;
 }
 #cancel-edit {
     background: #555;
-    margin-left: 10px;
+    margin-left: 0;
+    margin-top: 10px;
+    width: 100%;
 }
 .list-section {
     background: #181818;
@@ -109,9 +112,15 @@ form button {
     color: #fff;
     margin-bottom: 25px;
 }
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
 table {
     width: 100%;
     border-collapse: collapse;
+    min-width: 600px;
 }
 th, td {
     padding: 14px 12px;
@@ -185,16 +194,12 @@ td img {
     justify-content: center;
     padding: 0;
     line-height: 1;
+    z-index: 5;
 }
 
-.table-wrapper {
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-}
-
-table {
-    min-width: 600px; 
+#imagem {
+    font-size: 14px;
+    margin-bottom: 5px;
 }
 
 @media (max-width: 768px) {
@@ -212,6 +217,16 @@ table {
     .list-section {
         padding: 20px;
     }
+    form input,
+    form select,
+    form textarea {
+        font-size: 16px;
+    }
+    form button,
+    #cancel-edit {
+        padding: 16px;
+        font-size: 16px;
+    }
     th, td {
         padding: 10px 8px;
         font-size: 14px;
@@ -221,8 +236,9 @@ table {
         height: 45px;
     }
     .actions button {
-        padding: 5px 10px;
+        padding: 8px 12px;
         margin-right: 4px;
+        margin-bottom: 4px;
         font-size: 13px;
     }
 }
@@ -232,6 +248,9 @@ table {
         flex-direction: column;
         gap: 10px;
         text-align: center;
+    }
+    #logout-btn {
+        width: 100%;
     }
     .images-grid {
         justify-content: center;
