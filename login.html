@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | MR13 Imports</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/login.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div class="login">
+        <img src="img/MR13.jpeg" alt="MR13 Imports">
+        <h1>Área Administrativa</h1>
+        <input type="text" id="usuario" placeholder="Usuário" autocomplete="username">
+        <input type="password" id="senha" placeholder="Senha" autocomplete="current-password">
+        <button id="entrar-btn">Entrar</button>
+        <p id="erro" class="erro"></p>
+        <a href="index.html" class="voltar">← Voltar para o site</a>
+    </div>
+    <script src="js/supabase.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>
