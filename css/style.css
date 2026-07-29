@@ -1115,6 +1115,11 @@ footer small{
         height:80px;
     }
 
+    .logo img{
+        width:65px;
+        height:65px;
+    }
+
     h1{
         font-size:42px;
         line-height:42px;
