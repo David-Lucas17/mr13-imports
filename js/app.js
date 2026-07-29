@@ -147,14 +147,14 @@ if (slides.length > 0) {
     // define largura de espaçamento e escala conforme tamanho da tela
     function getSettings() {
         const w = window.innerWidth;
-        if (w <= 480) return { spacing: 130, scaleStep: 0.22, opacityStep: 0.45, maxVisible: 2 };
-        if (w <= 900) return { spacing: 170, scaleStep: 0.18, opacityStep: 0.4, maxVisible: 3 };
-        return { spacing: 230, scaleStep: 0.16, opacityStep: 0.35, maxVisible: 3 };
+        if (w <= 480) return { spacing: 130, scaleStep: 0.22, opacityStep: 0.45, maxVisible: 2, centerScale: 1.18 };
+        if (w <= 900) return { spacing: 170, scaleStep: 0.18, opacityStep: 0.4, maxVisible: 3, centerScale: 1.08 };
+        return { spacing: 230, scaleStep: 0.16, opacityStep: 0.35, maxVisible: 3, centerScale: 1 };
     }
 
     function layout() {
         const total = slides.length;
-        const { spacing, scaleStep, opacityStep, maxVisible } = getSettings();
+        const { spacing, scaleStep, opacityStep, maxVisible, centerScale } = getSettings();
 
         slides.forEach((slide, i) => {
             let offset = i - slideIndex;
@@ -164,7 +164,7 @@ if (slides.length > 0) {
             if (offset < -total / 2) offset += total;
 
             const dist = Math.abs(offset);
-            const scale = Math.max(1 - dist * scaleStep, 0.55);
+            const scale = dist === 0 ? centerScale : Math.max(1 - dist * scaleStep, 0.55);
             let opacity = Math.max(1 - dist * opacityStep, 0);
             if (dist > maxVisible) opacity = 0;
 
