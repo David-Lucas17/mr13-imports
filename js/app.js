@@ -123,3 +123,84 @@ if (menuToggle && nav) {
         }
     });
 }
+let slideIndex = 0;
+const slides = document.querySelectorAll(".carrossel-slide");
+const dotsContainer = document.querySelector(".carrossel-dots");
+const prevBtn = document.querySelector(".prev");
+const nextBtn = document.querySelector(".next");
+
+if (slides.length > 0) {
+
+    // gera um dot para cada slide (o HTML tinha só 4 fixos, aqui criamos dinamicamente)
+    dotsContainer.innerHTML = "";
+    slides.forEach((_, index) => {
+        const dot = document.createElement("span");
+        dot.className = "dot";
+        dot.addEventListener("click", () => {
+            slideIndex = index;
+            layout();
+        });
+        dotsContainer.appendChild(dot);
+    });
+    const dots = dotsContainer.querySelectorAll(".dot");
+
+    // define largura de espaçamento e escala conforme tamanho da tela
+    function getSettings() {
+        const w = window.innerWidth;
+        if (w <= 480) return { spacing: 130, scaleStep: 0.22, opacityStep: 0.45, maxVisible: 2 };
+        if (w <= 900) return { spacing: 170, scaleStep: 0.18, opacityStep: 0.4, maxVisible: 3 };
+        return { spacing: 230, scaleStep: 0.16, opacityStep: 0.35, maxVisible: 3 };
+    }
+
+    function layout() {
+        const total = slides.length;
+        const { spacing, scaleStep, opacityStep, maxVisible } = getSettings();
+
+        slides.forEach((slide, i) => {
+            let offset = i - slideIndex;
+
+            // pega o caminho mais curto (circular) para o efeito ficar contínuo
+            if (offset > total / 2) offset -= total;
+            if (offset < -total / 2) offset += total;
+
+            const dist = Math.abs(offset);
+            const scale = Math.max(1 - dist * scaleStep, 0.55);
+            let opacity = Math.max(1 - dist * opacityStep, 0);
+            if (dist > maxVisible) opacity = 0;
+
+            const translateX = offset * spacing;
+            const brightness = Math.max(1 - dist * 0.18, 0.35);
+
+            slide.style.transform = `translate(-50%, -50%) translateX(${translateX}px) scale(${scale})`;
+            slide.style.opacity = opacity;
+            slide.style.zIndex = 100 - dist;
+            slide.style.filter = `brightness(${brightness})`;
+            slide.style.pointerEvents = dist === 0 ? "auto" : "none";
+        });
+
+        dots.forEach(dot => dot.classList.remove("active"));
+        dots[slideIndex].classList.add("active");
+    }
+
+    function goTo(n) {
+        const total = slides.length;
+        slideIndex = (n + total) % total;
+        layout();
+    }
+
+    prevBtn.addEventListener("click", () => goTo(slideIndex - 1));
+    nextBtn.addEventListener("click", () => goTo(slideIndex + 1));
+
+    let autoplay = setInterval(() => goTo(slideIndex + 1), 4000);
+
+    // pausa o autoplay quando o mouse passa por cima do carrossel
+    const container = document.querySelector(".carrossel-container");
+    container.addEventListener("mouseenter", () => clearInterval(autoplay));
+    container.addEventListener("mouseleave", () => {
+        autoplay = setInterval(() => goTo(slideIndex + 1), 4000);
+    });
+
+    window.addEventListener("resize", layout);
+
+    layout();
+}
