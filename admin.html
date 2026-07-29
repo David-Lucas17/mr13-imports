@@ -52,19 +52,21 @@
         <section class="list-section">
             <h2>Produtos Cadastrados</h2>
             <input type="text" id="search" placeholder="Pesquisar...">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Imagem</th>
-                        <th>Nome</th>
-                        <th>Marca</th>
-                        <th>Categoria</th>
-                        <th>Preço</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody id="products-tbody"></tbody>
-            </table>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Imagem</th>
+                            <th>Nome</th>
+                            <th>Marca</th>
+                            <th>Categoria</th>
+                            <th>Preço</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="products-tbody"></tbody>
+                </table>
+            </div>
         </section>
     </main>
     <script src="js/supabase.js"></script>

@@ -186,3 +186,59 @@ td img {
     padding: 0;
     line-height: 1;
 }
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+table {
+    min-width: 600px; 
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 15px 20px;
+    }
+    header h1 {
+        font-size: 22px;
+    }
+    main {
+        margin: 20px auto;
+        padding: 0 15px;
+    }
+    .form-section,
+    .list-section {
+        padding: 20px;
+    }
+    th, td {
+        padding: 10px 8px;
+        font-size: 14px;
+    }
+    td img {
+        width: 45px;
+        height: 45px;
+    }
+    .actions button {
+        padding: 5px 10px;
+        margin-right: 4px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    .images-grid {
+        justify-content: center;
+    }
+    .preview-item,
+    .existing-item {
+        width: 80px;
+        height: 80px;
+    }
+}
