@@ -191,14 +191,7 @@ if (slides.length > 0) {
     prevBtn.addEventListener("click", () => goTo(slideIndex - 1));
     nextBtn.addEventListener("click", () => goTo(slideIndex + 1));
 
-    let autoplay = setInterval(() => goTo(slideIndex + 1), 4000);
-
-    // pausa o autoplay quando o mouse passa por cima do carrossel
-    const container = document.querySelector(".carrossel-container");
-    container.addEventListener("mouseenter", () => clearInterval(autoplay));
-    container.addEventListener("mouseleave", () => {
-        autoplay = setInterval(() => goTo(slideIndex + 1), 4000);
-    });
+    setInterval(() => goTo(slideIndex + 1), 4000);
 
     window.addEventListener("resize", layout);
 
