@@ -95,6 +95,48 @@ function renderExistingImages() {
     });
 }
 
+function comprimirImagem(file, maxLargura = 1200, qualidade = 0.75) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+            img.src = e.target.result;
+        };
+        reader.onerror = reject;
+
+        img.onload = () => {
+            let largura = img.width;
+            let altura = img.height;
+
+            if (largura > maxLargura) {
+                altura = Math.round((altura * maxLargura) / largura);
+                largura = maxLargura;
+            }
+
+            const canvas = document.createElement('canvas');
+            canvas.width = largura;
+            canvas.height = altura;
+
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, largura, altura);
+
+            canvas.toBlob((blob) => {
+                if (!blob) {
+                    reject(new Error('Falha ao comprimir imagem.'));
+                    return;
+                }
+                const novoNome = file.name.replace(/\.[^/.]+$/, '') + '.jpg';
+                const novoArquivo = new File([blob], novoNome, { type: 'image/jpeg' });
+                resolve(novoArquivo);
+            }, 'image/jpeg', qualidade);
+        };
+        img.onerror = reject;
+
+        reader.readAsDataURL(file);
+    });
+}
+
 async function loadProducts(search = '') {
     let query = window.supabaseClient.from('produtos').select('*').order('created_at', { ascending: false });
     if (search) {
@@ -185,8 +227,21 @@ form.addEventListener('submit', async (e) => {
 
     if (newFiles.length > 0) {
         for (const file of newFiles) {
-            const fileName = `produto_${Date.now()}_${file.name}`;
-            const { error: uploadError } = await window.supabaseClient.storage.from('produtos').upload(fileName, file);
+            let arquivoParaEnviar;
+            try {
+                arquivoParaEnviar = await comprimirImagem(file);
+            } catch (err) {
+                alert('Erro ao comprimir imagem: ' + err.message);
+                return;
+            }
+
+            const fileName = `produto_${Date.now()}_${arquivoParaEnviar.name}`;
+            const { error: uploadError } = await window.supabaseClient.storage
+                .from('produtos')
+                .upload(fileName, arquivoParaEnviar, {
+                    cacheControl: '31536000',
+                    upsert: false
+                });
             if (uploadError) {
                 alert('Erro no upload: ' + uploadError.message);
                 return;
