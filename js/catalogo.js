@@ -18,11 +18,15 @@ async function carregarCatalogo() {
     if (error) return;
 
     const container = document.getElementById('produtos-container');
-    container.innerHTML = data.map(prod => {
+    container.innerHTML = data.map((prod, index) => {
         const capa = prod.imagens && prod.imagens.length > 0 ? prod.imagens[0] : (prod.imagem || '');
         return `
             <article class="produto">
-                <img src="${capa}" alt="${prod.nome}">
+                <img 
+                    src="${capa}" 
+                    alt="${prod.nome}" 
+                    loading="${index < 4 ? 'eager' : 'lazy'}"
+                >
                 <div class="info">
                     <h3>${prod.nome}</h3>
                     <span>${prod.categoria}</span>

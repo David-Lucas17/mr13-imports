@@ -24,7 +24,12 @@ async function carregarProduto() {
     document.getElementById('detalhes').innerHTML = `
         <div class="galeria carrossel">
             <div class="carrossel-imagens">
-                ${imagens.map(img => `<img src="${img}" alt="${produto.nome}" class="carrossel-item">`).join('')}
+                ${imagens.map((img, i) => `
+                    <img 
+                        ${i === 0 ? `src="${img}"` : `data-src="${img}"`} 
+                        alt="${produto.nome}" 
+                        class="carrossel-item"
+                    >`).join('')}
             </div>
             ${setas}
         </div>
@@ -52,7 +57,15 @@ async function carregarProduto() {
 
         function mostrarIndice(i) {
             items.forEach((item, idx) => {
-                item.style.display = idx === i ? 'block' : 'none';
+                if (idx === i) {
+                    if (item.dataset.src) {
+                        item.src = item.dataset.src;
+                        delete item.dataset.src;
+                    }
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
             });
         }
         mostrarIndice(0);
