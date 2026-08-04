@@ -35,7 +35,7 @@ async function carregarProduto() {
             <p>${produto.descricao || ''}</p>
             <div class="preco">R$ ${parseFloat(produto.preco).toFixed(2)}</div>
             <div class="comprar">
-                <a href="https://wa.me/5585999848040?text=${msg}" class="btn" target="_blank">
+                <a href="https://wa.me/5588921464656?text=${msg}" class="btn" target="_blank">
                     Comprar pelo WhatsApp
                 </a>
                 <a href="javascript:history.back()" class="btn-outline">
