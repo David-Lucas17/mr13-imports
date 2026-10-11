@@ -365,6 +365,12 @@ nav a:hover{
 
 }
 
+.cards-marcas .marca:last-child:nth-child(odd){
+
+    grid-column:span 2;
+
+}
+
 .marca{
 
     position:relative;
@@ -450,6 +456,14 @@ nav a:hover{
 
 }
 
+.joma{
+
+    background:
+    linear-gradient(rgba(0,0,0,.45),rgba(0,0,0,.75)),
+    url("../img/joma/banner.jpg") center/cover;
+
+}
+
 .banner-marca{
 
     min-height:55vh;
@@ -520,6 +534,12 @@ nav a:hover{
 
 }
 
+.joma-banner{
+
+    background:url("../img/joma/banner.jpg") center/cover;
+
+}
+
 .catalogo{
 
     background:#111111;
@@ -538,6 +558,17 @@ nav a:hover{
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:30px;
+
+}
+
+.catalogo-aviso{
+
+    grid-column:1/-1;
+    text-align:center;
+    color:var(--cinza);
+    padding:60px 20px;
+    border:1px dashed rgba(255,255,255,.12);
+    border-radius:var(--radius);
 
 }
 
@@ -986,6 +1017,10 @@ footer small{
 
     .cards-marcas{
         grid-template-columns:1fr;
+    }
+
+    .cards-marcas .marca:last-child:nth-child(odd){
+        grid-column:auto;
     }
 
     .diferenciais .container{

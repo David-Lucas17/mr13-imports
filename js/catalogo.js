@@ -6,6 +6,7 @@ async function carregarCatalogo() {
     else if (path.includes('adidas')) marca = 'Adidas';
     else if (path.includes('puma')) marca = 'Puma';
     else if (path.includes('mizuno')) marca = 'Mizuno';
+    else if (path.includes('joma')) marca = 'Joma';
 
     if (!marca) return;
 
@@ -15,9 +16,19 @@ async function carregarCatalogo() {
         .eq('marca', marca)
         .order('created_at', { ascending: false });
 
-    if (error) return;
-
     const container = document.getElementById('produtos-container');
+    if (!container) return;
+
+    if (error) {
+        container.innerHTML = `<p class="catalogo-aviso">Não foi possível carregar o catálogo. Tente novamente em instantes.</p>`;
+        return;
+    }
+
+    if (!data || data.length === 0) {
+        container.innerHTML = `<p class="catalogo-aviso">Novidades ${marca} chegando em breve. Fale com a gente no WhatsApp para consultar disponibilidade.</p>`;
+        return;
+    }
+
     container.innerHTML = data.map((prod, index) => {
         const capa = prod.imagens && prod.imagens.length > 0 ? prod.imagens[0] : (prod.imagem || '');
         return `
